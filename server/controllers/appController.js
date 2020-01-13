@@ -3,7 +3,8 @@ const externalRates = require('../modules/externalRates');
 
 // import rates from external soources
 exports.importRates = (req, res) => {
-	externalRates.fetchAllPairsDetails();
+	//import every 20 seconds-> get historical data-> emit
+	setInterval(externalRates.fetchAllPairsDetails, 10000);
 	res.send('ok');
 };
 
@@ -25,3 +26,5 @@ exports.getHistoricalRates = async (req, res) => {
 		),
 	);
 };
+
+//import every 5 seconds-> get historical data-> emit

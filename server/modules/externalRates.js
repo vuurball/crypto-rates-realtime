@@ -3,6 +3,7 @@ const { Pair, HistoricalRate } = require('../sequelize');
 const BITSTAMP = 'BitStamp';
 const CRYPTOCOMPARE = 'CryptoCompare';
 const EXTERNAL_SOURCES = [CRYPTOCOMPARE, BITSTAMP];
+var socketConf = require('../socketConf');
 
 /**
  * fetching and saving rates for all pairs from external APIs
@@ -124,7 +125,25 @@ const updateMarketPrices = async newRates => {
 			{ where: { base: pair.base, quote: pair.quote } },
 		);
 	}
+
+	emitHistoricalPricesUpdate();
 };
+
+/**
+ * emiting the changes via socket to clients
+ */
+async function emitHistoricalPricesUpdate() {
+	const pairs = await Pair.findAll({ attributes: ['base', 'quote'] });
+
+	pairs.forEach((pair, i, arr) => {
+		fetchPairHistoricalPrices(pair.base, pair.quote).then(rates => {
+			socketConf.io.emit('rates', {
+				pair: pair.base + '/' + pair.quote,
+				rates: rates,
+			});
+		});
+	});
+}
 
 /**
  * returning historical prices from db by pair grouped by source

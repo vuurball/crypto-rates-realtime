@@ -24,17 +24,23 @@ var server = http.createServer(app);
 /**
  * Socket setup.
  */
-const io = require('socket.io')(server);
-io.on('connection', socket => {
-	console.info('SOCKET: client connected');
-	socket.on('rates', async data => {
-		console.info('SOCKET: event recieved by server,' + data);
-		io.emit('rates', data);
-	});
-	socket.on('disconnect', function() {
-		console.info('SOCKET: client disconnected');
-	});
-});
+var socketConf = require('../socketConf');
+var io = socketConf.io;
+io.attach(server);
+// var io = app.io();
+// io.attach(server);
+
+// const io = require('socket.io')(server);
+// io.on('connection', socket => {
+// 	console.info('SOCKET: client connected');
+// 	socket.on('rates', async data => {
+// 		console.info('SOCKET: event recieved by server,' + data);
+// 		io.emit('rates', data);
+// 	});
+// 	socket.on('disconnect', function() {
+// 		console.info('SOCKET: client disconnected');
+// 	});
+// });
 
 /**
  * Listen on provided port, on all network interfaces.
