@@ -1,8 +1,11 @@
 <template>
   <div>
-    {{this.selectedPair}}
     <HistoricalRatesSection :historicalData="historicalData" :selectedPair="selectedPair"></HistoricalRatesSection>
-    <MarketPricesSection :pairIsALink="true" v-on:pair-changed="selectActivePair($event)"></MarketPricesSection>
+    <MarketPricesSection
+      :pairIsALink="true"
+      :selectedPair="selectedPair"
+      v-on:pair-changed="selectActivePair($event)"
+    ></MarketPricesSection>
   </div>
 </template>
 

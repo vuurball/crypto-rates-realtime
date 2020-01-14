@@ -124,6 +124,12 @@ const updateMarketPrices = async newRates => {
 			{ market_price: avarageRate },
 			{ where: { base: pair.base, quote: pair.quote } },
 		);
+
+		socketConf.io.emit('marketPrices', {
+			base: pair.base,
+			quote: pair.quote,
+			market_price: avarageRate,
+		});
 	}
 
 	emitHistoricalPricesUpdate();
