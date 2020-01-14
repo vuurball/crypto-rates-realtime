@@ -1,13 +1,13 @@
-**Demo project for importing crypto rates from external sources using sockets**
+**Demo project for showing realtime crypto rates dashboard, by importing crypto rates from external sources, and updating client via sockets**
 
-Technologies:
+![](https://github.com/vuurball/crypto-rates-realtime/blob/master/demo.gif)
+
+**Technologies:**
 
 - express
 - vuejs
 - mysql
 - socket.io
-
-![](https://github.com/vuurball/crypto-rates/blob/master/demo.gif)
 
 # server
 

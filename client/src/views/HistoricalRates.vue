@@ -29,7 +29,7 @@ export default {
   },
   sockets: {
     connect: function() {
-      alert("connected to server socket");
+      //alert("connected to server socket");
     },
     /** listening for incoming "rates" event */
     rates: function(data) {

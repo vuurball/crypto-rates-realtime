@@ -1,10 +1,10 @@
 const { Pair, HistoricalRate } = require('../sequelize');
 const externalRates = require('../modules/externalRates');
 
-// import rates from external soources
+// import rates from external sources
 exports.importRates = (req, res) => {
-	//import every 20 seconds-> get historical data-> emit
-	setInterval(externalRates.fetchAllPairsDetails, 10000);
+	// looped process for importing rates every 30 seconds and updating client via socket
+	setInterval(externalRates.fetchAllPairsDetails, 30000);
 	res.send('ok');
 };
 
